@@ -47,17 +47,17 @@ class PHPTemplate
 
         if (is_file($this->template) && realpath($this->template)) {
 
-
             ob_start();
             extract($this->getVariables());
-            include($template);
+            include($this->template);
             $buffer = ob_get_clean();
             return $buffer;
 
-        } else {
+        }
+        else {
             ob_start();
             extract($this->getVariables());
-            eval('?>'.$this->template);
+            eval('?>' . $this->template);
             $buffer = ob_get_clean();
             return $buffer;
         }
