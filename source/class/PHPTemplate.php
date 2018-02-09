@@ -5,12 +5,14 @@ namespace Phi\Template;
 
 
 use Phi\Traits\Collection;
+use Phi\Traits\Introspectable;
 
 class PHPTemplate
 {
 
 
     use Collection;
+    use Introspectable;
 
 
     protected $template = null;
@@ -61,6 +63,19 @@ class PHPTemplate
             $buffer = ob_get_clean();
             return $buffer;
         }
+    }
+
+    public function fragment($file, $shareVariables = false, $variables = array())
+    {
+        ob_start();
+        if($shareVariables) {
+            extract($this->getVariables());
+        }
+        extract($variables);
+        include($this->getDefinitionFolder().'/'.$file);
+
+        echo ob_get_clean();
+        return $this;
     }
 
 
