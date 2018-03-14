@@ -21,7 +21,10 @@ class PHPTemplate
 
     public function __construct($template = null)
     {
-        $this->template = $template;
+        if($template !== null) {
+            $this->template = $template;
+        }
+
     }
 
 
