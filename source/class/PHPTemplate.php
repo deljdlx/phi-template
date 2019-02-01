@@ -4,6 +4,7 @@
 namespace Phi\Template;
 
 
+use Phi\HTML\ViewComponent;
 use Phi\Traits\Collection;
 use Phi\Traits\Introspectable;
 
@@ -28,26 +29,62 @@ class PHPTemplate
     }
 
 
+    public function __set($name, $value)
+    {
+        return $this->set($name, $value);
+    }
+
+
+    public function __get($name)
+    {
+        return $this->get($name);
+    }
+
+
     public function set($name, $value)
     {
         return $this->setVariable($name, $value);
     }
 
-    public function &get($name)
+    public function get($name)
     {
         return $this->getVariable($name);
     }
 
+    protected function display($variableName, $escapeHTML = true, $variables = array()) {
 
-    public function render($template = null, $values = null)
+
+
+        if($this->offsetExists($variableName)) {
+
+            if($this->getVariable($variableName) instanceof ViewComponent) {
+                foreach ($variables as $name => $value) {
+                    $this->getVariable($variableName)->setVariable($name, $value);
+                }
+            }
+
+            if($escapeHTML) {
+                echo htmlentities($this->getVariable($variableName));
+            }
+            else {
+                echo $this->getVariable($variableName);
+            }
+        }
+        else {
+            if($escapeHTML) {
+                echo htmlentities($variableName);
+            }
+            else {
+                echo $variableName;
+            }
+        }
+    }
+
+
+
+    public function render()
     {
-        if ($template !== null) {
-            $this->template = $template;
-        }
 
-        if (is_array($values)) {
-            $this->setVariables($values);
-        }
 
 
         if (is_file($this->template) && realpath($this->template)) {
@@ -68,36 +105,27 @@ class PHPTemplate
         }
     }
 
-    public function fragment($file, $shareVariables = false, $variables = array())
+
+    public function obInclude($file, $variables = array(), $shareVariables = false)
     {
         ob_start();
         if($shareVariables) {
             extract($this->getVariables());
         }
         extract($variables);
-        include($this->getDefinitionFolder().'/'.$file);
+        include($file);
+        //include($this->getDefinitionFolder().'/'.$file);
 
-        echo ob_get_clean();
-        return $this;
+        return ob_get_clean();
     }
+
+
 
 
     public function __toString()
     {
         $buffer = $this->render();
         return $buffer;
-    }
-
-
-    public function __set($name, $value)
-    {
-        return $this->set($name, $value);
-    }
-
-
-    public function &__get($name)
-    {
-        return $this->get($name);
     }
 
 
