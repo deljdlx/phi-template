@@ -5,13 +5,14 @@ namespace Phi\Template;
 
 
 use Phi\HTML\ViewComponent;
+use Phi\Template\Traits\MustacheTemplate;
 use Phi\Traits\Collection;
 use Phi\Traits\Introspectable;
 
 class PHPTemplate
 {
 
-
+    use MustacheTemplate;
     use Collection;
     use Introspectable;
 
@@ -114,9 +115,16 @@ class PHPTemplate
         }
         extract($variables);
         include($file);
+
+        $output = ob_get_clean();
+
+        $this->compileMustache($output, $this->getVariables());
+
+        return $output;
+
         //include($this->getDefinitionFolder().'/'.$file);
 
-        return ob_get_clean();
+
     }
 
 
