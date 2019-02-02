@@ -4,12 +4,13 @@
 namespace Phi\Template;
 
 
+use Phi\Core\Interfaces\Renderer;
 use Phi\HTML\ViewComponent;
 use Phi\Template\Traits\MustacheTemplate;
 use Phi\Traits\Collection;
 use Phi\Traits\Introspectable;
 
-class PHPTemplate
+class PHPTemplate implements Renderer
 {
 
     use MustacheTemplate;
