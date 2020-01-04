@@ -7,7 +7,6 @@ Trait MustacheTemplate
 {
 
 
-
     protected $compileMustache = true;
 
 
@@ -24,11 +23,13 @@ Trait MustacheTemplate
     }
 
 
-    public function compileMustache($buffer, $variables) {
-        if($this->compileMustache) {
+    public function compileMustache($buffer, $variables)
+    {
+        if ($this->compileMustache) {
 
-            $mustacheEngine=new \Mustache_Engine();
-            $compiled=$mustacheEngine->render($buffer, $variables);
+            $mustacheEngine = new \Mustache_Engine();
+            $compiled = $mustacheEngine->render($buffer, $variables);
+
             return $compiled;
         }
 

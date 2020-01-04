@@ -2,6 +2,12 @@
 
 
 
+require(__DIR__.'/mustache/src/Mustache/Autoloader.php');
+$mustableAutoloader = new Mustache_Autoloader();
+$mustableAutoloader->register();
+
+
+
 spl_autoload_register(function ($calledClassName) {
 
     $normalizedClassName = preg_replace('`^\\\\`', '', $calledClassName);
@@ -18,8 +24,6 @@ spl_autoload_register(function ($calledClassName) {
             include($definitionClass);
         }
     }
-
-
 
 });
 
