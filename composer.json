@@ -3,9 +3,9 @@
 	"description": "Phi template",
 
 	"repositories": [
-		{"type": "vcs", "url": "https://github.com/elbiniou/phi-core"},
-		{"type": "vcs", "url": "https://github.com/elbiniou/phi-traits"},
-		{"type": "vcs", "url": "https://github.com/elbiniou/phi-filesystem"}
+		{"type": "vcs", "url": "https://github.com/deljdlx/phi-core"},
+		{"type": "vcs", "url": "https://github.com/deljdlx/phi-traits"},
+		{"type": "vcs", "url": "https://github.com/deljdlx/phi-filesystem"}
 	],
 	"require":
 	{
