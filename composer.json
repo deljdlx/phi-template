@@ -9,9 +9,9 @@
 	],
 	"require":
 	{
-		"elbiniou/phi-core": "0.1.0",
-		"elbiniou/phi-traits": "0.1.0",
-		"elbiniou/phi-filesystem": "0.1.0"
+		"deljlx/phi-core": "0.1.0",
+		"deljlx/phi-traits": "0.1.0",
+		"deljlx/phi-filesystem": "0.1.0"
 	},
 
 
